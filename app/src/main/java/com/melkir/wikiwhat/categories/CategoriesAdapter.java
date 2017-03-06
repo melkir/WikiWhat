@@ -18,7 +18,6 @@ import static com.melkir.wikiwhat.categories.CategoriesFragment.CategoryItemList
 
 public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolder> {
     private static final String TAG = CategoriesAdapter.class.getSimpleName();
-    private static final int LENGTH = 3;
 
     private List<Category> mCategories;
     private CategoryItemListener mItemListener;
@@ -55,7 +54,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
 
     @Override
     public int getItemCount() {
-        return LENGTH;
+        return mCategories.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

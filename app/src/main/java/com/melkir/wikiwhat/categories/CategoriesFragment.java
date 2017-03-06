@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -83,7 +84,7 @@ public class CategoriesFragment extends Fragment implements CategoriesContract.V
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.category_item, container, false);
+        View root = inflater.inflate(R.layout.categories_fragment, container, false);
         ButterKnife.bind(this, root);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -111,6 +112,7 @@ public class CategoriesFragment extends Fragment implements CategoriesContract.V
 
     @Override
     public void showNoCategories() {
+        Log.d(TAG, "show no categories");
         mRecyclerView.setVisibility(View.GONE);
         mNoCategoriesView.setVisibility(View.VISIBLE);
     }

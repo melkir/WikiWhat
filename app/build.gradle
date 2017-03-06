@@ -37,7 +37,7 @@ dependencies {
     compile "com.android.support:support-v4:$appCompatVersion"
     compile "com.android.support:recyclerview-v7:$appCompatVersion"
     compile "com.android.support:design:$appCompatVersion"
-    compile 'com.google.guava:guava:21.0'
+    compile 'com.google.guava:guava:20.0'
     compile 'com.jakewharton:butterknife:8.5.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
