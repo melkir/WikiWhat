@@ -16,7 +16,6 @@ public class CategoriesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.categories_activities);
 
-        // TODO Create the RecyclerView layout for the CategoriesFragment
         CategoriesFragment categoriesFragment =
                 (CategoriesFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
         if (categoriesFragment == null) {

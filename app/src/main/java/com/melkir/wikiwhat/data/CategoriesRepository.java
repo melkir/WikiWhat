@@ -11,6 +11,7 @@ public class CategoriesRepository implements CategoriesDataSource {
     }
 
     @Override
+    // TODO Change this method to be asynchronous
     public List<Category> getCategories() {
         return mCategories;
     }

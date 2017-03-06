@@ -37,12 +37,14 @@ public class CategoriesPresenter implements CategoriesContract.Presenter {
     }
 
     @Override
-    public void refreshCategories() {
-        // TODO Refresh the list of categories by calling the API
+    public void refreshCategoriesAsync() {
+        // TODO Refresh asynchronously the list of categories by calling the API
+        mCategoriesView.refreshCategories(null);
     }
 
     @Override
-    public void refreshCategory(int id) {
-        // TODO Refresh one item of the list by calling the API
+    public void refreshCategoryAsync(int id) {
+        // TODO Refresh asynchronously one item of the list by calling the API
+        mCategoriesView.refreshCategory(id);
     }
 }

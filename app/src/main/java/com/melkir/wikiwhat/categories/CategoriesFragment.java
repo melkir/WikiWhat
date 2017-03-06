@@ -1,20 +1,25 @@
 package com.melkir.wikiwhat.categories;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.melkir.wikiwhat.R;
 import com.melkir.wikiwhat.data.Category;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -23,6 +28,15 @@ public class CategoriesFragment extends Fragment implements CategoriesContract.V
 
     private CategoriesContract.Presenter mPresenter;
     private CategoriesAdapter mListAdapter;
+
+    @BindView(R.id.recyclerView)
+    RecyclerView mRecyclerView;
+
+    @BindView(R.id.noCategories)
+    View mNoCategoriesView;
+
+    @BindView(R.id.swipeRefreshLayout)
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
     public CategoriesFragment() {
         // Requires empty public constructor
@@ -39,6 +53,22 @@ public class CategoriesFragment extends Fragment implements CategoriesContract.V
     }
 
     @Override
+    public void refreshCategories(List<Category> categories) {
+        if (categories != null) {
+            mListAdapter.clear();
+            mListAdapter.addAll(categories);
+            mSwipeRefreshLayout.setRefreshing(false);
+        } else {
+            Toast.makeText(getContext(), "Unable to load data", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void refreshCategory(int id) {
+        // TODO Replace the old category by the new one
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         mPresenter.start();
@@ -49,77 +79,46 @@ public class CategoriesFragment extends Fragment implements CategoriesContract.V
         mPresenter = checkNotNull(presenter);
     }
 
-    CategoryItemListener mItemListener = clickedCategory -> {
-        // TODO Do something on category click like refreshing this category ?
-    };
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.category_item, container, false);
+        ButterKnife.bind(this, root);
+
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRecyclerView.setAdapter(mListAdapter);
+        mRecyclerView.setHasFixedSize(true);
+
+        mSwipeRefreshLayout.setOnRefreshListener(() -> mPresenter.refreshCategoriesAsync());
+
+        return root;
+    }
 
     @Override
     public void setLoadingIndicator(boolean active) {
-        // TODO Indicate that we are currently fetching categories
+        if (getView() == null) return;
+        mSwipeRefreshLayout.post(() -> mSwipeRefreshLayout.setRefreshing(active));
     }
 
     @Override
     public void showCategories(List<Category> categories) {
-        // TODO Display categories
+        mListAdapter.addAll(categories);
+
+        mRecyclerView.setVisibility(View.VISIBLE);
+        mNoCategoriesView.setVisibility(View.GONE);
     }
 
     @Override
     public void showNoCategories() {
-        // TODO Display that no categories is available
+        mRecyclerView.setVisibility(View.GONE);
+        mNoCategoriesView.setVisibility(View.VISIBLE);
     }
 
-    private class CategoriesAdapter extends BaseAdapter {
-        private List<Category> mCategories;
-        private CategoryItemListener mItemListener;
+    private final CategoryItemListener mItemListener =
+            clickedCategory -> mPresenter.refreshCategoryAsync(clickedCategory.getId());
 
-        public CategoriesAdapter(List<Category> categories, CategoryItemListener itemListener) {
-            setList(categories);
-            mItemListener = itemListener;
-        }
-
-
-        public void replaceData(List<Category> categories) {
-            setList(categories);
-            notifyDataSetChanged();
-        }
-
-        private void setList(List<Category> categories) {
-            mCategories = checkNotNull(categories);
-        }
-
-
-        @Override
-        public int getCount() {
-            return mCategories.size();
-        }
-
-        @Override
-        public Category getItem(int i) {
-            return mCategories.get(i);
-        }
-
-        @Override
-        public long getItemId(int i) {
-            return i;
-        }
-
-        @Override
-        public View getView(int i, View view, ViewGroup parent) {
-            if (view == null) {
-                LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-                view = inflater.inflate(R.layout.category_item, parent, false);
-            }
-            final Category category = getItem(i);
-            TextView title = (TextView) view.findViewById(R.id.category_title);
-            title.setText(category.getTitle());
-            TextView count = (TextView) view.findViewById(R.id.category_count);
-            count.setText(category.getCount());
-            // TODO Set a refresh button for each categories
-            return view;
-        }
-    }
-
-    public interface CategoryItemListener {
+    interface CategoryItemListener {
         void onCategoryClick(Category clickedCategory);
     }
 }
