@@ -42,6 +42,16 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
         notifyDataSetChanged();
     }
 
+    public void clearOne(int position) {
+        mCategories.set(position, new Category(0, "Loading...", 0));
+        notifyDataSetChanged();
+    }
+
+    public void replace(int position, Category newCategory) {
+        mCategories.set(position, newCategory);
+        notifyDataSetChanged();
+    }
+
     private void setList(List<Category> categories) {
         mCategories = checkNotNull(categories);
     }

@@ -38,15 +38,35 @@ public class CategoriesPresenter implements CategoriesContract.Presenter {
 
     @Override
     public void refreshCategoriesAsync() {
+        // onStart
+        mCategoriesView.clearAllCategories();
+//        mCategoriesView.setLoadingIndicator(true); // already implemented by the widget
+
+        // onSuccess
         // TODO Refresh asynchronously the list of categories by calling the API
         mCategoriesView.refreshCategories(null);
+
+        // onFail
+        // TODO Restore the list of categories
+
         // onFinish
         mCategoriesView.setLoadingIndicator(false);
     }
 
     @Override
-    public void refreshCategoryAsync(int id) {
+    public void refreshCategoryAsync(int position) {
+        // onStart
+        mCategoriesView.clearCategory(position);
+        mCategoriesView.setLoadingIndicator(true);
+
+        // onSuccess
         // TODO Refresh asynchronously one item of the list by calling the API
-        mCategoriesView.refreshCategory(id);
+        mCategoriesView.refreshCategory(position, null);
+
+        // onFail
+        // TODO Restore the previous category
+
+        // onFinish
+        mCategoriesView.setLoadingIndicator(false);
     }
 }

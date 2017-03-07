@@ -16,9 +16,13 @@ public interface CategoriesContract {
 
         void showNoCategories();
 
-        void refreshCategories(List<Category> success);
+        void clearCategory(int position);
 
-        void refreshCategory(int id);
+        void clearAllCategories();
+
+        void refreshCategories(List<Category> categories);
+
+        void refreshCategory(int position, Category newCategory);
     }
 
     interface Presenter extends BasePresenter {
@@ -27,6 +31,6 @@ public interface CategoriesContract {
 
         void refreshCategoriesAsync();
 
-        void refreshCategoryAsync(int id);
+        void refreshCategoryAsync(int position);
     }
 }

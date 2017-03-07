@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,9 +64,14 @@ public class CategoriesFragment extends Fragment implements CategoriesContract.V
     }
 
     @Override
-    public void refreshCategory(int id) {
-        // TODO Replace the old category by the new one
-        Toast.makeText(getContext(), "Refresh item id: " + id, Toast.LENGTH_LONG).show();
+    public void refreshCategory(int position, Category newCategory) {
+        if (newCategory != null) {
+            mListAdapter.clearOne(position);
+            mListAdapter.replace(position, newCategory);
+            mSwipeRefreshLayout.setRefreshing(false);
+        } else {
+            Toast.makeText(getContext(), "Unable to load data", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -113,9 +117,18 @@ public class CategoriesFragment extends Fragment implements CategoriesContract.V
 
     @Override
     public void showNoCategories() {
-        Log.d(TAG, "show no categories");
         mRecyclerView.setVisibility(View.GONE);
         mNoCategoriesView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void clearCategory(int position) {
+        mListAdapter.clearOne(position);
+    }
+
+    @Override
+    public void clearAllCategories() {
+        mListAdapter.clear();
     }
 
     private final CategoryItemListener mItemListener =
