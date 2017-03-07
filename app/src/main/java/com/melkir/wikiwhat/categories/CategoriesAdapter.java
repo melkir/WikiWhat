@@ -79,7 +79,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
         public void bind(Category category) {
             mTitle.setText(category.getTitle());
             mCount.setText("(" + category.getCount() + " members)");
-            itemView.setOnClickListener(l -> mItemListener.onCategoryClick(category));
+            itemView.setOnClickListener(v -> mItemListener.onCategoryClick(category));
         }
     }
 }

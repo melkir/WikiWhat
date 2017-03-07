@@ -11,6 +11,5 @@ public class CategoriesRepositoryTest {
 
     @Test
     public void shouldDownloadCategoriesFromWikipedia() {
-        
     }
 }

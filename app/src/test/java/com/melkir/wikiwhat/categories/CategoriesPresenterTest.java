@@ -17,7 +17,7 @@ import java.util.List;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-public class ModulesPresenterTest {
+public class CategoriesPresenterTest {
     private static List<Category> CATEGORIES;
 
     @Rule
@@ -39,10 +39,13 @@ public class ModulesPresenterTest {
 
     @Test
     public void shouldPassCategoriesToView() {
+        // arrange
         when(mCategoriesRepository.getCategories()).thenReturn(CATEGORIES);
 
+        // act
         mCategoriesPresenter.loadCategories();
 
+        // assert
         verify(mCategoriesView).showCategories(CATEGORIES);
     }
 
