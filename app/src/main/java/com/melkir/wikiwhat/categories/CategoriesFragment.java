@@ -67,6 +67,7 @@ public class CategoriesFragment extends Fragment implements CategoriesContract.V
     @Override
     public void refreshCategory(int id) {
         // TODO Replace the old category by the new one
+        Toast.makeText(getContext(), "Refresh item id: " + id, Toast.LENGTH_LONG).show();
     }
 
     @Override

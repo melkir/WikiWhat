@@ -15,6 +15,10 @@ public class CategoriesRepository implements CategoriesDataSource {
     // TODO Change this method to be asynchronous and return data
     public List<Category> getCategories() {
 //        return Collections.emptyList();
-        return Arrays.asList(new Category(0, "Education aaaaa bbbbb ccccc dddddd eeeee fffff ggggg", 298), new Category(1, "Computer science", 38));
+        return Arrays.asList(
+                new Category(0, "Education", 298),
+                new Category(1, "Computer science", 38),
+                new Category(2, "French novelists", 40)
+        );
     }
 }
