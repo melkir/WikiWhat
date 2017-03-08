@@ -3,7 +3,7 @@ package com.melkir.wikiwhat.categories;
 import android.support.annotation.NonNull;
 
 import com.melkir.wikiwhat.data.CategoriesRepository;
-import com.melkir.wikiwhat.data.Category;
+import com.melkir.wikiwhat.data.model.Category;
 
 import java.util.List;
 
@@ -30,6 +30,7 @@ public class CategoriesPresenter implements CategoriesContract.Presenter {
     }
 
     @Override
+    // TODO Use Wikipedia service
     public void loadCategories() {
         List<Category> categories = mCategoriesRepository.getCategories();
         if (categories.isEmpty()) mCategoriesView.showNoCategories();
@@ -37,34 +38,52 @@ public class CategoriesPresenter implements CategoriesContract.Presenter {
     }
 
     @Override
+    // TODO Use Wikipedia service
     public void refreshCategoriesAsync() {
+//        Observable<List<Category>> obsCategories = mCategoriesRepository.getRandomCategories(3);
+//
+//        mCategoriesView.clearAllCategories();
+//        obsCategories
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(
+//                data -> {
+//                    mCategoriesView.refreshCategories(data);
+//                    mCategoriesView.setLoadingIndicator(false);
+//                },
+//                err -> {
+//                    mCategoriesView.displayToast("Unable to load data");
+//                    mCategoriesView.setLoadingIndicator(false);
+//                }
+//        );
+
         // onStart
-        mCategoriesView.clearAllCategories();
+//        mCategoriesView.clearAllCategories();
 //        mCategoriesView.setLoadingIndicator(true); // already implemented by the widget
 
         // onSuccess
         // TODO Refresh asynchronously the list of categories by calling the API
-        mCategoriesView.refreshCategories(null);
+//        mCategoriesView.refreshCategories(Collections.emptyList());
 
         // onFail
-        // TODO Restore the list of categories
+        mCategoriesView.displayToast("Unable to load data");
 
         // onFinish
         mCategoriesView.setLoadingIndicator(false);
     }
 
     @Override
+    // TODO Use Wikipedia service
     public void refreshCategoryAsync(int position) {
         // onStart
-        mCategoriesView.clearCategory(position);
+//        mCategoriesView.clearCategory(position);
         mCategoriesView.setLoadingIndicator(true);
 
         // onSuccess
         // TODO Refresh asynchronously one item of the list by calling the API
-        mCategoriesView.refreshCategory(position, null);
+//        mCategoriesView.refreshCategory(position, null);
 
         // onFail
-        // TODO Restore the previous category
+        mCategoriesView.displayToast("Unable to load data");
 
         // onFinish
         mCategoriesView.setLoadingIndicator(false);

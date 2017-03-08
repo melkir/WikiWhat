@@ -1,4 +1,4 @@
-package com.melkir.wikiwhat.data.wikipedia.model;
+package com.melkir.wikiwhat.data.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

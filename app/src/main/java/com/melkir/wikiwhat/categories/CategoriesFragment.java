@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.melkir.wikiwhat.R;
-import com.melkir.wikiwhat.data.Category;
+import com.melkir.wikiwhat.data.model.Category;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,24 +54,23 @@ public class CategoriesFragment extends Fragment implements CategoriesContract.V
 
     @Override
     public void refreshCategories(List<Category> categories) {
-        if (categories != null) {
-            mListAdapter.clear();
-            mListAdapter.addAll(categories);
-            mSwipeRefreshLayout.setRefreshing(false);
-        } else {
-            Toast.makeText(getContext(), "Unable to load data", Toast.LENGTH_SHORT).show();
-        }
+        mListAdapter.addAll(categories);
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
     public void refreshCategory(int position, Category newCategory) {
         if (newCategory != null) {
-            mListAdapter.clearOne(position);
             mListAdapter.replace(position, newCategory);
             mSwipeRefreshLayout.setRefreshing(false);
         } else {
-            Toast.makeText(getContext(), "Unable to load data", Toast.LENGTH_SHORT).show();
+            displayToast("Unable to load data");
         }
+    }
+
+    @Override
+    public void displayToast(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
     @Override

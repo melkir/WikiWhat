@@ -1,15 +1,12 @@
 package com.melkir.wikiwhat.categories;
 
 import com.melkir.wikiwhat.data.CategoriesRepository;
-import com.melkir.wikiwhat.data.wikipedia.model.Random;
 
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
-
-import java.util.List;
 
 public class CategoriesRepositoryTest {
     @Rule
@@ -29,8 +26,7 @@ public class CategoriesRepositoryTest {
     public void shouldFetchRandomCategoryFromWikipedia() {
         System.out.println("Test start");
         mCategoriesRepo.getRandomCategory().subscribe(res -> {
-            List<Random> randoms = res.getRandoms();
-            System.out.println(randoms);
+            System.out.println(res);
         }, err -> {
             System.out.println(err);
         });

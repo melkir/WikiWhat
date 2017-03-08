@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.melkir.wikiwhat.R;
-import com.melkir.wikiwhat.data.Category;
+import com.melkir.wikiwhat.data.model.Category;
 
 import java.util.List;
 

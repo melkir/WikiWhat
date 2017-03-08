@@ -4,10 +4,15 @@ import android.content.Context;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.melkir.wikiwhat.data.wikipedia.model.Response;
-import com.melkir.wikiwhat.data.wikipedia.ResponseDeserializer;
+import com.google.gson.reflect.TypeToken;
+import com.melkir.wikiwhat.data.model.Category;
+import com.melkir.wikiwhat.data.model.CategoryMember;
+import com.melkir.wikiwhat.data.model.Page;
 import com.melkir.wikiwhat.data.wikipedia.WikipediaService;
+import com.melkir.wikiwhat.data.wikipedia.util.ItemDeserializer;
+import com.melkir.wikiwhat.data.wikipedia.util.ListDeserializer;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -22,25 +27,38 @@ public class CategoriesRepository implements CategoriesDataSource {
     private WikipediaService mWikipediaService;
 
     public CategoriesRepository() {
-//        RxJava2CallAdapterFactory rxAdapter = RxJava2CallAdapterFactory
-//                .createWithScheduler(Schedulers.io());
+        mWikipediaService = newWikipediaServiceInstance();
+    }
+
+    public CategoriesRepository(Context context) {
+        mWikipediaService = newWikipediaServiceInstance();
+    }
+
+    private WikipediaService newWikipediaServiceInstance() {
+        // Asynchronous retrofit (for production)
+//         RxJava2CallAdapterFactory rxAdapter = RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io());
+        // Synchronous retrofit (for testing)
         RxJava2CallAdapterFactory rxAdapter = RxJava2CallAdapterFactory.create();
 
-        Gson gson = new GsonBuilder()
-                        .registerTypeAdapter(Response.class, new ResponseDeserializer<>(Response.class, "query"))
-                        .create();
+        Type randomList = new TypeToken<List<Category>>() {}.getType();
+        Type categoryMemberList = new TypeToken<List<CategoryMember>>() {}.getType();
 
+        // Gson parsers for Wikipedia API
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(randomList, new ListDeserializer<>(randomList, "random"))
+                .registerTypeAdapter(Category.class, new ItemDeserializer<>(Category.class, "random"))
+                .registerTypeAdapter(categoryMemberList, new ListDeserializer<>(categoryMemberList, "categorymembers"))
+                .registerTypeAdapter(Page.class, new ItemDeserializer<>(Page.class, "pages"))
+                .create();
+
+        // Configure Retrofit to use our parsers and RXJava adapter
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(WikipediaService.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(rxAdapter)
                 .build();
 
-        mWikipediaService = retrofit.create(WikipediaService.class);
-    }
-
-    public CategoriesRepository(Context context) {
-        super();
+        return retrofit.create(WikipediaService.class);
     }
 
     @Override
@@ -57,7 +75,33 @@ public class CategoriesRepository implements CategoriesDataSource {
         return mCategories;
     }
 
-    public Observable<Response> getRandomCategory() {
+    @Override
+    public Observable<List<Category>> getRandomCategories(int limit) {
+        return mWikipediaService.getRandomCategories(limit);
+    }
+
+    @Override
+    public Observable<Category> getRandomCategory() {
         return mWikipediaService.getRandomCategory();
+    }
+
+    @Override
+    public Observable<List<CategoryMember>> getCategoryMembers(int id, int limit) {
+        return mWikipediaService.getCategoryMembers(id, limit);
+    }
+
+    @Override
+    public Observable<List<CategoryMember>> getCategoryMembers(String title, int limit) {
+        return mWikipediaService.getCategoryMembers(title, limit);
+    }
+
+    @Override
+    public Observable<Page> getPageContent(int id) {
+        return mWikipediaService.getPageContent(id);
+    }
+
+    @Override
+    public Observable<Page> getPageContent(String title) {
+        return mWikipediaService.getPageContent(title);
     }
 }

@@ -1,7 +1,7 @@
 package com.melkir.wikiwhat.categories;
 
 import com.melkir.wikiwhat.data.CategoriesRepository;
-import com.melkir.wikiwhat.data.Category;
+import com.melkir.wikiwhat.data.model.Category;
 
 import org.junit.Before;
 import org.junit.Rule;

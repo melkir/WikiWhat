@@ -2,7 +2,7 @@ package com.melkir.wikiwhat.categories;
 
 import com.melkir.wikiwhat.BasePresenter;
 import com.melkir.wikiwhat.BaseView;
-import com.melkir.wikiwhat.data.Category;
+import com.melkir.wikiwhat.data.model.Category;
 
 import java.util.List;
 
@@ -23,6 +23,8 @@ public interface CategoriesContract {
         void refreshCategories(List<Category> categories);
 
         void refreshCategory(int position, Category newCategory);
+
+        void displayToast(String message);
     }
 
     interface Presenter extends BasePresenter {
