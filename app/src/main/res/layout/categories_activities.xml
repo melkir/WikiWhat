@@ -5,9 +5,31 @@
     android:layout_height="match_parent"
     tools:context="com.melkir.wikiwhat.categories.CategoriesActivity">
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:paddingStart="16dp"
+        android:paddingTop="8dp"
+        android:text="Categories list"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
     <FrameLayout
         android:id="@+id/contentFrame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_above="@+id/btnStart" />
 
+    <Button
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:id="@+id/btnStart"
+        android:onClick="startSession"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:layout_alignParentBottom="true"
+        android:text="Start this session"
+        android:textAllCaps="false"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Inverse"
+        android:textSize="16dp" />
 </RelativeLayout>

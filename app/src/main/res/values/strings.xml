@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">WikiWhat</string>
-    <string name="no_data_available">No data available, check your internet connection</string>
+    <string name="no_data_available">No data available</string>
 </resources>

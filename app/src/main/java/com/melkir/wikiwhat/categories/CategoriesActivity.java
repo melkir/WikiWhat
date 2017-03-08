@@ -2,6 +2,8 @@ package com.melkir.wikiwhat.categories;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Toast;
 
 import com.melkir.wikiwhat.R;
 import com.melkir.wikiwhat.data.CategoriesRepository;
@@ -27,5 +29,9 @@ public class CategoriesActivity extends AppCompatActivity {
 
         // Create the presenter
         mCategoriesPresenter = new CategoriesPresenter(new CategoriesRepository(this), categoriesFragment);
+    }
+
+    public void startSession(View view) {
+        Toast.makeText(this, "Not implemented yet", Toast.LENGTH_SHORT).show();
     }
 }
