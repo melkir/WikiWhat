@@ -1,4 +1,4 @@
-package com.melkir.wikiwhat.data.wikipedia;
+package com.melkir.wikiwhat.data.wikipedia.model;
 
 
 import com.google.gson.annotations.Expose;
@@ -8,6 +8,7 @@ public class Random {
     @SerializedName("id")
     @Expose
     private Integer id;
+
     @SerializedName("title")
     @Expose
     private String title;

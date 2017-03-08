@@ -4,8 +4,7 @@ import android.content.Context;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.melkir.wikiwhat.data.wikipedia.Query;
-import com.melkir.wikiwhat.data.wikipedia.Response;
+import com.melkir.wikiwhat.data.wikipedia.model.Response;
 import com.melkir.wikiwhat.data.wikipedia.ResponseDeserializer;
 import com.melkir.wikiwhat.data.wikipedia.WikipediaService;
 
@@ -28,12 +27,12 @@ public class CategoriesRepository implements CategoriesDataSource {
         RxJava2CallAdapterFactory rxAdapter = RxJava2CallAdapterFactory.create();
 
         Gson gson = new GsonBuilder()
-                        .registerTypeAdapter(Query.class, new ResponseDeserializer<>(Query.class, "query"))
+                        .registerTypeAdapter(Response.class, new ResponseDeserializer<>(Response.class, "query"))
                         .create();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(WikipediaService.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(rxAdapter)
                 .build();
 

@@ -1,7 +1,7 @@
 package com.melkir.wikiwhat.categories;
 
 import com.melkir.wikiwhat.data.CategoriesRepository;
-import com.melkir.wikiwhat.data.wikipedia.Random;
+import com.melkir.wikiwhat.data.wikipedia.model.Random;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -29,7 +29,7 @@ public class CategoriesRepositoryTest {
     public void shouldFetchRandomCategoryFromWikipedia() {
         System.out.println("Test start");
         mCategoriesRepo.getRandomCategory().subscribe(res -> {
-            List<Random> randoms = res.getQuery().getRandom();
+            List<Random> randoms = res.getRandoms();
             System.out.println(randoms);
         }, err -> {
             System.out.println(err);

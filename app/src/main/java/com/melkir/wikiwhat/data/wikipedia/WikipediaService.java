@@ -1,8 +1,6 @@
 package com.melkir.wikiwhat.data.wikipedia;
 
-import com.melkir.wikiwhat.data.Category;
-
-import java.util.List;
+import com.melkir.wikiwhat.data.wikipedia.model.Response;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
@@ -47,26 +45,26 @@ public interface WikipediaService {
     final String BASE_API = "api.php?action=query&format=json";
 
     @GET(BASE_API + "&list=random&rnnamespace=14")
-    Observable<List<Category>> getRandomCategories(@Query("rnlimit") int limit);
+    Observable<Response> getRandomCategories(@Query("rnlimit") int limit);
 
     @GET(BASE_API + "&list=random&rnnamespace=14&rnlimit=1")
     Observable<Response> getRandomCategory();
 
     @GET(BASE_API + "&list=categorymembers")
-    Observable<List<Category>> getCategoryMembers(
+    Observable<Response> getCategoryMembers(
             @Query("cmpageid") int id,
             @Query("cmlimit") int limit
     );
 
     @GET(BASE_API + "&list=categorymembers")
-    Observable<List<Category>> getCategoryMembers(
+    Observable<Response> getCategoryMembers(
             @Query("cmtitle=Category:") String title,
             @Query("cmlimit") int limit
     );
 
     @GET(BASE_API + "&prop=extracts")
-    Observable<Object> getPagesContent(@Query("pagesids") int... ids);
+    Observable<Response> getPagesContent(@Query("pagesids") int... ids);
 
     @GET(BASE_API + "&prop=extracts")
-    Observable<Object> getPagesContent(@Query("titles") String... titles);
+    Observable<Response> getPagesContent(@Query("titles") String... titles);
 }
