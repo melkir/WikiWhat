@@ -20,4 +20,8 @@ public class CategoryMember {
         return title;
     }
 
+    @Override
+    public String toString() {
+        return "CategoryMember{" + "pageid=" + pageid + ", title='" + title + '\'' + '}';
+    }
 }

@@ -19,16 +19,23 @@ public class CategoriesRepositoryTest {
     }
 
     @Test
+    public void shouldFetchPageFromWipedia() {
+        // TODO Fix this method
+        mCategoriesRepo.getPageContent(370096).subscribe(System.out::println, System.out::println);
+    }
+
+    @Test
+    public void shouldFetchCategoryMembers() {
+        mCategoriesRepo.getCategoryMembers(40924578, 3).subscribe(System.out::println, System.out::println);
+    }
+
+    @Test
     public void shouldFetchRandomCategoriesFromWikipedia() {
+        mCategoriesRepo.getRandomCategories(3).subscribe(System.out::println, System.out::println);
     }
 
     @Test
     public void shouldFetchRandomCategoryFromWikipedia() {
-        System.out.println("Test start");
-        mCategoriesRepo.getRandomCategory().subscribe(res -> {
-            System.out.println(res);
-        }, err -> {
-            System.out.println(err);
-        });
+        mCategoriesRepo.getRandomCategory().subscribe(System.out::println, System.out::println);
     }
 }

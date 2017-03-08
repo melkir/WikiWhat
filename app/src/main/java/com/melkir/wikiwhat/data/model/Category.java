@@ -41,4 +41,9 @@ public class Category {
     public int getCount() {
         return this.count;
     }
+
+    @Override
+    public String toString() {
+        return "Category{" + "id=" + id + ", title='" + title + '\'' + ", count=" + count + '}';
+    }
 }
