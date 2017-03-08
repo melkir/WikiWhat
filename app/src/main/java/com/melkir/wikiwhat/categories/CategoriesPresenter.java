@@ -97,7 +97,6 @@ public class CategoriesPresenter implements CategoriesContract.Presenter {
     }
 
     @Override
-    // TODO Use Wikipedia service
     public void refreshCategoryAsync(int position) {
         mCompositeDisposable
                 .add(mCategoriesRepository.getRandomCategory()
