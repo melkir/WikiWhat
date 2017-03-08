@@ -4,6 +4,9 @@ package com.melkir.wikiwhat.data.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Category {
     @SerializedName("id")
     @Expose
@@ -16,6 +19,8 @@ public class Category {
     private int count;
 
     private int index;
+
+    private List<CategoryMember> categoryMembers = new ArrayList<>();
 
     public Category(Integer id, String title) {
         this.id = id;
@@ -50,6 +55,15 @@ public class Category {
 
     public void setListIndex(int index) {
         this.index = index;
+    }
+
+    public List<CategoryMember> getCategoryMembers() {
+        return categoryMembers;
+    }
+
+    public void setCategoryMembers(List<CategoryMember> categoryMembers) {
+        this.categoryMembers = categoryMembers;
+        this.count = categoryMembers.size();
     }
 
     @Override
