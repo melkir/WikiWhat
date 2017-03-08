@@ -18,6 +18,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import io.reactivex.Observable;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -36,9 +37,9 @@ public class CategoriesRepository implements CategoriesDataSource {
 
     private WikipediaService newWikipediaServiceInstance() {
         // Asynchronous retrofit (for production)
-//         RxJava2CallAdapterFactory rxAdapter = RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io());
+         RxJava2CallAdapterFactory rxAdapter = RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io());
         // Synchronous retrofit (for testing)
-        RxJava2CallAdapterFactory rxAdapter = RxJava2CallAdapterFactory.create();
+//        RxJava2CallAdapterFactory rxAdapter = RxJava2CallAdapterFactory.create();
 
         Type randomList = new TypeToken<List<Category>>() {}.getType();
         Type categoryMemberList = new TypeToken<List<CategoryMember>>() {}.getType();

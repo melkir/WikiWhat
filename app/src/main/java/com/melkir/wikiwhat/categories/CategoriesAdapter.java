@@ -32,18 +32,8 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
         return new ViewHolder(LayoutInflater.from(parent.getContext()), parent);
     }
 
-    public void clear() {
-        mCategories.clear();
-        notifyDataSetChanged();
-    }
-
     public void addAll(List<Category> categories) {
         setList(categories);
-        notifyDataSetChanged();
-    }
-
-    public void clearOne(int position) {
-        mCategories.set(position, new Category(0, "Loading...", 0));
         notifyDataSetChanged();
     }
 
@@ -59,6 +49,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Category category = mCategories.get(position);
+        category.setListIndex(position);
         holder.bind(category);
     }
 

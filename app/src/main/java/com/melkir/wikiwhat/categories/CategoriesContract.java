@@ -9,16 +9,9 @@ import java.util.List;
 public interface CategoriesContract {
 
     interface View extends BaseView<Presenter> {
-
-        void setLoadingIndicator(boolean active);
-
         void showCategories(List<Category> categories);
 
         void showNoCategories();
-
-        void clearCategory(int position);
-
-        void clearAllCategories();
 
         void refreshCategories(List<Category> categories);
 
@@ -28,6 +21,7 @@ public interface CategoriesContract {
     }
 
     interface Presenter extends BasePresenter {
+        void stop();
 
         void loadCategories();
 

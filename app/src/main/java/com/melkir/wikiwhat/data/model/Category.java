@@ -15,6 +15,8 @@ public class Category {
 
     private int count;
 
+    private int index;
+
     public Category(Integer id, String title) {
         this.id = id;
         this.title = title;
@@ -42,8 +44,17 @@ public class Category {
         return this.count;
     }
 
+    public int getListIndex() {
+        return index;
+    }
+
+    public void setListIndex(int index) {
+        this.index = index;
+    }
+
     @Override
     public String toString() {
         return "Category{" + "id=" + id + ", title='" + title + '\'' + ", count=" + count + '}';
     }
+
 }

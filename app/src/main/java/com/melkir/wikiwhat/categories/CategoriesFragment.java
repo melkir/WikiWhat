@@ -60,12 +60,8 @@ public class CategoriesFragment extends Fragment implements CategoriesContract.V
 
     @Override
     public void refreshCategory(int position, Category newCategory) {
-        if (newCategory != null) {
-            mListAdapter.replace(position, newCategory);
-            mSwipeRefreshLayout.setRefreshing(false);
-        } else {
-            displayToast("Unable to load data");
-        }
+        mListAdapter.replace(position, newCategory);
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
@@ -77,6 +73,12 @@ public class CategoriesFragment extends Fragment implements CategoriesContract.V
     public void onResume() {
         super.onResume();
         mPresenter.start();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mPresenter.stop();
     }
 
     @Override
@@ -101,12 +103,6 @@ public class CategoriesFragment extends Fragment implements CategoriesContract.V
     }
 
     @Override
-    public void setLoadingIndicator(boolean active) {
-        if (getView() == null) return;
-        mSwipeRefreshLayout.post(() -> mSwipeRefreshLayout.setRefreshing(active));
-    }
-
-    @Override
     public void showCategories(List<Category> categories) {
         mListAdapter.addAll(categories);
 
@@ -120,18 +116,8 @@ public class CategoriesFragment extends Fragment implements CategoriesContract.V
         mNoCategoriesView.setVisibility(View.VISIBLE);
     }
 
-    @Override
-    public void clearCategory(int position) {
-        mListAdapter.clearOne(position);
-    }
-
-    @Override
-    public void clearAllCategories() {
-        mListAdapter.clear();
-    }
-
     private final CategoryItemListener mItemListener =
-            clickedCategory -> mPresenter.refreshCategoryAsync(clickedCategory.getId());
+            clickedCategory -> mPresenter.refreshCategoryAsync(clickedCategory.getListIndex());
 
     interface CategoryItemListener {
         void onCategoryClick(Category clickedCategory);
