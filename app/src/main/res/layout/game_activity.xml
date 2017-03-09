@@ -6,9 +6,9 @@
 
     <LinearLayout
         android:id="@+id/topLayout"
-        android:padding="8dp"
         android:layout_width="match_parent"
-        android:layout_height="36dp">
+        android:layout_height="36dp"
+        android:padding="8dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -28,17 +28,17 @@
 
     <ImageButton
         android:id="@+id/btnUseClue"
-        android:paddingTop="4dp"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
-        android:paddingBottom="8dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:background="@android:color/transparent"
+        android:paddingBottom="8dp"
+        android:paddingEnd="8dp"
+        android:paddingStart="8dp"
+        android:paddingTop="4dp"
         android:src="@drawable/ic_add_circle"
-        android:tint="#4caf50"
-        android:text="Use a clue" />
+        android:text="Use a clue"
+        android:tint="#4caf50" />
 
     <FrameLayout
         android:id="@+id/contentFrame"
@@ -61,14 +61,14 @@
             android:id="@+id/editTextAnswer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.8"
+            android:layout_weight="1"
             android:hint="Answer" />
 
         <Button
             android:id="@+id/btnSubmitAnswer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.2"
+            android:layout_weight="0"
             android:text="Submit" />
 
     </LinearLayout>

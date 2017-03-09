@@ -1,13 +1,14 @@
 package com.melkir.wikiwhat.categories;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Toast;
 
 import com.melkir.wikiwhat.R;
 import com.melkir.wikiwhat.data.CategoriesRepository;
+import com.melkir.wikiwhat.game.GameActivity;
 import com.melkir.wikiwhat.util.ActivityUtils;
 
 public class CategoriesActivity extends AppCompatActivity {
@@ -33,6 +34,9 @@ public class CategoriesActivity extends AppCompatActivity {
     }
 
     public void startSession(View view) {
-        Toast.makeText(this, "Not implemented yet", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, GameActivity.class);
+        intent.putExtra(GameActivity.EXTRA_PAGE_ID, "0");
+        startActivity(intent);
+//        Toast.makeText(this, "Not implemented yet", Toast.LENGTH_SHORT).show();
     }
 }
