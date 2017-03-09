@@ -18,7 +18,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".game.GameActivity" />
+        <activity android:name=".game.GameActivity"
+            android:label="Guess the page title"
+            android:parentActivityName=".categories.CategoriesActivity" />
     </application>
 
 </manifest>
