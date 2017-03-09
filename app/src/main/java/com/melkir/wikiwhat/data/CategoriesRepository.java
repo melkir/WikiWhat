@@ -10,6 +10,7 @@ import com.melkir.wikiwhat.data.model.CategoryMember;
 import com.melkir.wikiwhat.data.model.Page;
 import com.melkir.wikiwhat.data.wikipedia.WikipediaService;
 import com.melkir.wikiwhat.data.wikipedia.util.ItemDeserializer;
+import com.melkir.wikiwhat.data.wikipedia.util.KeyDeserializer;
 import com.melkir.wikiwhat.data.wikipedia.util.ListDeserializer;
 
 import java.lang.reflect.Type;
@@ -36,7 +37,7 @@ public class CategoriesRepository implements CategoriesDataSource {
 
     private WikipediaService newWikipediaServiceInstance() {
         // Asynchronous retrofit (for production)
-         RxJava2CallAdapterFactory rxAdapter = RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io());
+        RxJava2CallAdapterFactory rxAdapter = RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io());
         // Synchronous retrofit (for testing)
 //        RxJava2CallAdapterFactory rxAdapter = RxJava2CallAdapterFactory.create();
 
@@ -48,7 +49,7 @@ public class CategoriesRepository implements CategoriesDataSource {
                 .registerTypeAdapter(randomList, new ListDeserializer<>(randomList, "random"))
                 .registerTypeAdapter(Category.class, new ItemDeserializer<>(Category.class, "random"))
                 .registerTypeAdapter(categoryMemberList, new ListDeserializer<>(categoryMemberList, "categorymembers"))
-                .registerTypeAdapter(Page.class, new ItemDeserializer<>(Page.class, "pages"))
+                .registerTypeAdapter(Page.class, new KeyDeserializer<>(Page.class, "pages"))
                 .create();
 
         // Configure Retrofit to use our parsers and RXJava adapter

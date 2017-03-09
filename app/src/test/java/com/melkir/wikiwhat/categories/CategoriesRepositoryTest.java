@@ -23,8 +23,7 @@ public class CategoriesRepositoryTest {
     }
 
     @Test
-    public void shouldFetchPageFromWipedia() {
-        // TODO Fix this method
+    public void shouldFetchPageFromWikipedia() {
         mCategoriesRepo.getPageContent(370096).subscribe();
         testSubscriber.assertNoErrors();
     }

@@ -67,7 +67,7 @@ public interface WikipediaService {
     );
 
     @GET(BASE_API + "&prop=extracts")
-    Observable<Page> getPageContent(@Query("pagesids") int id);
+    Observable<Page> getPageContent(@Query("pageids") int id);
 
     @GET(BASE_API + "&prop=extracts")
     Observable<Page> getPageContent(@Query("titles") String title);
