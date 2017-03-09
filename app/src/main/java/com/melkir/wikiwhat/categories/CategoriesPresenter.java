@@ -2,7 +2,7 @@ package com.melkir.wikiwhat.categories;
 
 import android.support.annotation.NonNull;
 
-import com.melkir.wikiwhat.data.CategoriesRepository;
+import com.melkir.wikiwhat.data.CategoriesDataSource;
 import com.melkir.wikiwhat.data.model.Category;
 
 import io.reactivex.Observable;
@@ -15,11 +15,11 @@ import io.reactivex.schedulers.Schedulers;
 public class CategoriesPresenter implements CategoriesContract.Presenter {
     private static final String TAG = CategoriesPresenter.class.getSimpleName();
 
-    private CategoriesRepository mCategoriesRepository;
+    private CategoriesDataSource mCategoriesRepository;
     private CategoriesContract.View mCategoriesView;
     private CompositeDisposable mCompositeDisposable;
 
-    public CategoriesPresenter(@NonNull CategoriesRepository categoriesRepository,
+    public CategoriesPresenter(@NonNull CategoriesDataSource categoriesRepository,
                                @NonNull CategoriesContract.View categoriesView) {
         mCategoriesRepository = categoriesRepository;
         mCategoriesView = categoriesView;

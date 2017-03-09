@@ -70,7 +70,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
         public void bind(Category category) {
             // create a new string without 'Category:'
             mTitle.setText(category.getTitle().substring(9));
-            mCount.setText("(" + category.getCount() + " members)");
+            mCount.setText("(" + category.getCount() + " pages)");
             itemView.setOnClickListener(v -> mItemListener.onCategoryClick(category));
         }
     }
