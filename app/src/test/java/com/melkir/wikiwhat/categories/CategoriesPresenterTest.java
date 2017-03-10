@@ -43,7 +43,7 @@ public class CategoriesPresenterTest {
     // Broken with RxJava2 AndroidSchedulers
     public void shouldPassCategoriesToView() {
         // arrange
-        when(mCategoriesRepository.getCategories()).thenReturn(CATEGORIES);
+        when(mCategoriesRepository.getCachedCategories()).thenReturn(CATEGORIES);
 
         // act
         mCategoriesPresenter.loadCategories();
@@ -56,7 +56,7 @@ public class CategoriesPresenterTest {
     @Ignore
     // Broken with RxJava2 AndroidSchedulers
     public void shouldHandleNoCategoriesFound() {
-        when(mCategoriesRepository.getCategories()).thenReturn(Collections.emptyList());
+        when(mCategoriesRepository.getCachedCategories()).thenReturn(Collections.emptyList());
 
         mCategoriesPresenter.loadCategories();
 

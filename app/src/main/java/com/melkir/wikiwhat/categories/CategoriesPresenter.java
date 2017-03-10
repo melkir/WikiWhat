@@ -49,8 +49,11 @@ public class CategoriesPresenter implements CategoriesContract.Presenter {
                     .subscribeOn(Schedulers.newThread())
                     .subscribe(
                             data -> {
-                                category.setCategoryMembers(data);
-                                mCategoriesView.refreshCategory(category.getListIndex(), category);
+                                if (0 == data.size()) refreshCategoryAsync(category.getListIndex());
+                                else {
+                                    category.setCategoryMembers(data);
+                                    mCategoriesView.refreshCategory(category.getListIndex(), category);
+                                }
                             },
                             err -> mCategoriesView.displayToast("Unable to retrieve members for " + category.getTitle())
                     ));
@@ -69,45 +72,54 @@ public class CategoriesPresenter implements CategoriesContract.Presenter {
     public void loadCategories() {
         mCompositeDisposable
                 .add(mCategoriesRepository.getRandomCategories(3)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.newThread())
-                .subscribe(
-                        data -> {
-                            mCategoriesView.showCategories(data);
-                            Observable.fromIterable(data).subscribe(categoryMemberObserver);
-                        },
-                        err -> mCategoriesView.showNoCategories()
-                )
-        );
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeOn(Schedulers.newThread())
+                        .subscribe(
+                                data -> {
+                                    mCategoriesView.showCategories(data);
+                                    mCategoriesRepository.setCachedCategories(data);
+                                    Observable.fromIterable(data).subscribe(categoryMemberObserver);
+                                },
+                                err -> mCategoriesView.showNoCategories()
+                        )
+                );
     }
 
     @Override
     public void refreshCategoriesAsync() {
         mCompositeDisposable
                 .add(mCategoriesRepository.getRandomCategories(3)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.newThread())
-                .subscribe(
-                        data -> {
-                            mCategoriesView.refreshCategories(data);
-                            Observable.fromIterable(data).subscribe(categoryMemberObserver);
-                        },
-                        err -> mCategoriesView.displayToast("Unable to load data")
-                ));
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeOn(Schedulers.newThread())
+                        .subscribe(
+                                data -> {
+                                    mCategoriesView.refreshCategories(data);
+                                    mCategoriesRepository.setCachedCategories(data);
+                                    Observable.fromIterable(data).subscribe(categoryMemberObserver);
+                                },
+                                err -> mCategoriesView.displayToast("Unable to load data")
+                        ));
     }
 
     @Override
     public void refreshCategoryAsync(int position) {
         mCompositeDisposable
                 .add(mCategoriesRepository.getRandomCategory()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.newThread())
-                .subscribe(
-                        data -> {
-                            mCategoriesView.refreshCategory(position, data);
-                            Observable.just(data).subscribe(categoryMemberObserver);
-                        },
-                        err -> mCategoriesView.displayToast("Unable to load data")
-                ));
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeOn(Schedulers.newThread())
+                        .subscribe(
+                                data -> {
+                                    mCategoriesView.refreshCategory(position, data);
+                                    mCategoriesRepository.setCachedCategory(position, data);
+                                    Observable.just(data).subscribe(categoryMemberObserver);
+                                },
+                                err -> mCategoriesView.displayToast("Unable to load data")
+                        ));
     }
+
+    @Override
+    public int getRandomPageId() {
+        return mCategoriesRepository.getRandomPageId();
+    }
+
 }

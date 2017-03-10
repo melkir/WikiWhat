@@ -9,7 +9,13 @@ import java.util.List;
 import io.reactivex.Observable;
 
 public interface CategoriesDataSource {
-    List<Category> getCategories();
+    List<Category> getCachedCategories();
+
+    void setCachedCategories(List<Category> categories);
+
+    void setCachedCategory(int i, Category newCategory);
+
+    int getRandomPageId();
 
     Observable<List<Category>> getRandomCategories(int limit);
 

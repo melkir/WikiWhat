@@ -28,5 +28,7 @@ public interface CategoriesContract {
         void refreshCategoriesAsync();
 
         void refreshCategoryAsync(int position);
+
+        int getRandomPageId();
     }
 }

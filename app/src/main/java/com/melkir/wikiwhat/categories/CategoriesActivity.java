@@ -35,8 +35,8 @@ public class CategoriesActivity extends AppCompatActivity {
 
     public void startSession(View view) {
         Intent intent = new Intent(this, GameActivity.class);
-        intent.putExtra(GameActivity.EXTRA_PAGE_ID, "0");
+        int pageId = mCategoriesPresenter.getRandomPageId();
+        intent.putExtra(GameActivity.EXTRA_PAGE_ID, pageId);
         startActivity(intent);
-//        Toast.makeText(this, "Not implemented yet", Toast.LENGTH_SHORT).show();
     }
 }

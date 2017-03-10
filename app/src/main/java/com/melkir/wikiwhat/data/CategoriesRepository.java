@@ -12,19 +12,19 @@ import com.melkir.wikiwhat.data.wikipedia.WikipediaService;
 import com.melkir.wikiwhat.data.wikipedia.util.ItemDeserializer;
 import com.melkir.wikiwhat.data.wikipedia.util.KeyDeserializer;
 import com.melkir.wikiwhat.data.wikipedia.util.ListDeserializer;
+import com.melkir.wikiwhat.util.MathUtils;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
-import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CategoriesRepository implements CategoriesDataSource {
-    private List<Category> mCategories = new ArrayList<>();
+    private List<Category> mCachedCategories = new ArrayList<>();
     private WikipediaService mWikipediaService;
 
     public CategoriesRepository() {
@@ -63,8 +63,18 @@ public class CategoriesRepository implements CategoriesDataSource {
     }
 
     @Override
-    public List<Category> getCategories() {
-        return mCategories;
+    public List<Category> getCachedCategories() {
+        return mCachedCategories;
+    }
+
+    @Override
+    public void setCachedCategories(List<Category> categories) {
+        this.mCachedCategories = categories;
+    }
+
+    @Override
+    public void setCachedCategory(int i, Category newCategory) {
+        mCachedCategories.set(i, newCategory);
     }
 
     @Override
@@ -95,5 +105,23 @@ public class CategoriesRepository implements CategoriesDataSource {
     @Override
     public Observable<Page> getPageContent(String title) {
         return mWikipediaService.getPageContent(title);
+    }
+
+    @Override
+    public int getRandomPageId() {
+        Category category = getRandomCachedCategory();
+        return getRandomCachedCategoryMember(category).getPageid();
+    }
+
+    private Category getRandomCachedCategory() {
+        int randomIndex = MathUtils.getRandomNumberInRange(0, mCachedCategories.size() - 1);
+        return mCachedCategories.get(randomIndex);
+    }
+
+    private CategoryMember getRandomCachedCategoryMember(Category category) {
+        List<CategoryMember> members = category.getCategoryMembers();
+        if (members.size() == 1) return members.get(0);
+        int randomCategoryMember = MathUtils.getRandomNumberInRange(0, members.size() - 1);
+        return members.get(randomCategoryMember);
     }
 }

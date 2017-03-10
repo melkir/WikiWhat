@@ -15,14 +15,13 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:paddingEnd="5px"
-            android:text="Number of indices remaining:" />
+            android:text="Number of clues remaining:" />
 
         <TextView
             android:id="@+id/clueCount"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:text="20" />
+            android:gravity="center_vertical" />
 
     </LinearLayout>
 
