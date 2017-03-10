@@ -20,6 +20,8 @@ public interface CategoriesContract {
         void displayToast(String message);
 
         void showTotalCategoriesMembers(int total);
+
+        void setLoadingIndicator(boolean condition);
     }
 
     interface Presenter extends BasePresenter {

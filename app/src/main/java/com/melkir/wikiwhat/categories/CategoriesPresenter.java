@@ -76,12 +76,14 @@ public class CategoriesPresenter implements CategoriesContract.Presenter {
 
     @Override
     public void loadCategories() {
+        mCategoriesView.setLoadingIndicator(true);
         mCompositeDisposable
                 .add(mCategoriesRepository.getRandomCategories(3)
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeOn(Schedulers.newThread())
                         .subscribe(
                                 data -> {
+                                    mCategoriesView.setLoadingIndicator(false);
                                     mCategoriesView.showCategories(data);
                                     mCategoriesRepository.setCachedCategories(data);
                                     Observable.fromIterable(data).subscribe(categoryMemberObserver);

@@ -79,6 +79,11 @@ public class CategoriesFragment extends Fragment implements CategoriesContract.V
     }
 
     @Override
+    public void setLoadingIndicator(boolean condition) {
+        mSwipeRefreshLayout.post(() -> mSwipeRefreshLayout.setRefreshing(true));
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         mPresenter.start();
