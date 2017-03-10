@@ -16,5 +16,7 @@ public interface GameContract {
 
     interface Presenter extends BasePresenter {
         void stop();
+
+        int getTotalPoints();
     }
 }

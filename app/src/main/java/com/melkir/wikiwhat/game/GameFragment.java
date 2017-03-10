@@ -51,6 +51,8 @@ public class GameFragment extends Fragment implements GameContract.View {
     private Button mAnswerButton;
     private TextView mAnswerText;
 
+    private int mTotalPoints;
+
     public static GameFragment newInstance() {
         return new GameFragment();
     }
@@ -93,13 +95,19 @@ public class GameFragment extends Fragment implements GameContract.View {
         mClueButton.setOnClickListener(l -> showNextClue());
         mAnswerButton.setOnClickListener(l -> submitAnswer());
 
+        mTotalPoints = mPresenter.getTotalPoints();
+
         return root;
     }
 
     private void submitAnswer() {
         String answer = mAnswerText.getText().toString().toLowerCase();
-        if (answer.equals(mPage.getTitle().toLowerCase())) displayToast("Correct");
-        else displayToast("Incorrect the answser is " + mPage.getTitle());
+        if (answer.equals(mPage.getTitle().toLowerCase())) {
+            int pointEarned = mTotalPoints - mClueIndex + 1;
+            displayToast("Correct you have earn " + pointEarned + " points");
+        } else {
+            displayToast("Incorrect the answser is " + mPage.getTitle());
+        }
     }
 
     private void showNextClue() {

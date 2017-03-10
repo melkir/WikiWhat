@@ -4,6 +4,9 @@ import android.support.annotation.NonNull;
 
 import com.melkir.wikiwhat.data.CategoriesDataSource;
 import com.melkir.wikiwhat.data.model.Category;
+import com.melkir.wikiwhat.data.model.CategoryMember;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -18,6 +21,7 @@ public class CategoriesPresenter implements CategoriesContract.Presenter {
     private CategoriesDataSource mCategoriesRepository;
     private CategoriesContract.View mCategoriesView;
     private CompositeDisposable mCompositeDisposable;
+    private int mTotalPoints;
 
     public CategoriesPresenter(@NonNull CategoriesDataSource categoriesRepository,
                                @NonNull CategoriesContract.View categoriesView) {
@@ -53,6 +57,8 @@ public class CategoriesPresenter implements CategoriesContract.Presenter {
                                 else {
                                     category.setCategoryMembers(data);
                                     mCategoriesView.refreshCategory(category.getListIndex(), category);
+                                    mTotalPoints += data.size();
+                                    mCategoriesView.showTotalCategoriesMembers(mTotalPoints);
                                 }
                             },
                             err -> mCategoriesView.displayToast("Unable to retrieve members for " + category.getTitle())
@@ -87,6 +93,8 @@ public class CategoriesPresenter implements CategoriesContract.Presenter {
 
     @Override
     public void refreshCategoriesAsync() {
+        mTotalPoints = 0;
+
         mCompositeDisposable
                 .add(mCategoriesRepository.getRandomCategories(3)
                         .observeOn(AndroidSchedulers.mainThread())
@@ -103,6 +111,10 @@ public class CategoriesPresenter implements CategoriesContract.Presenter {
 
     @Override
     public void refreshCategoryAsync(int position) {
+        List<CategoryMember> cachedCategoryMembers =mCategoriesRepository.getCachedCategories()
+                .get(position).getCategoryMembers();
+        if (cachedCategoryMembers != null) mTotalPoints -= cachedCategoryMembers.size();
+
         mCompositeDisposable
                 .add(mCategoriesRepository.getRandomCategory()
                         .observeOn(AndroidSchedulers.mainThread())
@@ -120,6 +132,11 @@ public class CategoriesPresenter implements CategoriesContract.Presenter {
     @Override
     public int getRandomPageId() {
         return mCategoriesRepository.getRandomPageId();
+    }
+
+    @Override
+    public int getTotalPoints() {
+        return mTotalPoints;
     }
 
 }

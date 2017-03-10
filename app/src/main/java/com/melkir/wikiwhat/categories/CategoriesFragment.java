@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.melkir.wikiwhat.R;
@@ -37,6 +38,9 @@ public class CategoriesFragment extends Fragment implements CategoriesContract.V
 
     @BindView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout mSwipeRefreshLayout;
+
+    @BindView(R.id.totalPageCount)
+    TextView mViewPageCount;
 
     public CategoriesFragment() {
         // Requires empty public constructor
@@ -67,6 +71,11 @@ public class CategoriesFragment extends Fragment implements CategoriesContract.V
     @Override
     public void displayToast(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showTotalCategoriesMembers(int total) {
+        mViewPageCount.setText(Integer.toString(total));
     }
 
     @Override

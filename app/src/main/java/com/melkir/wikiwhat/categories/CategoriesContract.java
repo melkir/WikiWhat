@@ -18,6 +18,8 @@ public interface CategoriesContract {
         void refreshCategory(int position, Category newCategory);
 
         void displayToast(String message);
+
+        void showTotalCategoriesMembers(int total);
     }
 
     interface Presenter extends BasePresenter {
@@ -30,5 +32,7 @@ public interface CategoriesContract {
         void refreshCategoryAsync(int position);
 
         int getRandomPageId();
+
+        int getTotalPoints();
     }
 }

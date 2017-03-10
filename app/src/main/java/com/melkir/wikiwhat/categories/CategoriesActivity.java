@@ -37,6 +37,7 @@ public class CategoriesActivity extends AppCompatActivity {
         Intent intent = new Intent(this, GameActivity.class);
         int pageId = mCategoriesPresenter.getRandomPageId();
         intent.putExtra(GameActivity.EXTRA_PAGE_ID, pageId);
+        intent.putExtra(GameActivity.EXTRA_TOTAL_POINTS, mCategoriesPresenter.getTotalPoints());
         startActivity(intent);
     }
 }

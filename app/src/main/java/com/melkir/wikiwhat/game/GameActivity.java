@@ -3,7 +3,6 @@ package com.melkir.wikiwhat.game;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import com.melkir.wikiwhat.R;
 import com.melkir.wikiwhat.data.CategoriesRepository;
@@ -14,6 +13,7 @@ public class GameActivity extends AppCompatActivity {
 
     private GamePresenter mGamePresenter;
     public static final String EXTRA_PAGE_ID = "PAGE_ID";
+    public static final String EXTRA_TOTAL_POINTS = "TOTAL_POINTS";
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -29,9 +29,9 @@ public class GameActivity extends AppCompatActivity {
         }
 
         int pageId = getIntent().getIntExtra(EXTRA_PAGE_ID, 0);
-        Log.d(TAG, "page id: " + pageId);
+        int totalPoints = getIntent().getIntExtra(EXTRA_TOTAL_POINTS, 0);
         // Create the presenter
-        mGamePresenter = new GamePresenter(pageId, new CategoriesRepository(this), gameFragment);
+        mGamePresenter = new GamePresenter(pageId, totalPoints, new CategoriesRepository(this), gameFragment);
     }
 
 }

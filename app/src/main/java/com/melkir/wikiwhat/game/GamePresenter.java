@@ -15,8 +15,9 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class GamePresenter implements GameContract.Presenter {
     private static final String TAG = GamePresenter.class.getSimpleName();
 
-    @Nullable
     private final int mPageId;
+
+    private final int mTotalPoints;
 
     @NonNull
     private final CategoriesDataSource mCategoriesRepository;
@@ -26,10 +27,11 @@ public class GamePresenter implements GameContract.Presenter {
 
     private CompositeDisposable mCompositeDisposable;
 
-    public GamePresenter(int pageId,
+    public GamePresenter(int pageId, int totalPoints,
                          @NonNull CategoriesDataSource categoriesRepository,
                          @NonNull GameContract.View gameView) {
         mPageId = pageId;
+        mTotalPoints = totalPoints;
         mCategoriesRepository = checkNotNull(categoriesRepository);
         mGameView = checkNotNull(gameView);
         mGameView.setPresenter(this);
@@ -59,4 +61,10 @@ public class GamePresenter implements GameContract.Presenter {
     public void stop() {
         mCompositeDisposable.clear();
     }
+
+    @Override
+    public int getTotalPoints() {
+        return mTotalPoints;
+    }
+
 }
