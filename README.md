@@ -1,8 +1,8 @@
 # WikiWhat
 
 ## Présentation
-WikiWhat? est un jeu permettant de tester ses connaissances et de les comparer avec celles de ses amis. Le but du jeu est de deviner de quelle page Wiképédia sont extraites certaines phrases.  
-Au démarrage, le jeu affiche aléatoirement 3 catégories Wiképédia. La liste de toutes les catégories se trouve à l'adresse http://en.wikipedia.org/wiki/Special:Categories.  
+WikiWhat? est un jeu permettant de tester ses connaissances et de les comparer avec celles de ses amis. Le but du jeu est de deviner de quelle page Wikipedia sont extraites certaines phrases.  
+Au démarrage, le jeu affiche aléatoirement 3 catégories Wikipedia. La liste de toutes les catégories se trouve à l'adresse http://en.wikipedia.org/wiki/Special:Categories.  
 
 Pour chaque catégorie, le nombre de pages associées est également affiché. Le joueur peut alors:
 * Demander à afficher 3 nouvelles catégories,  
